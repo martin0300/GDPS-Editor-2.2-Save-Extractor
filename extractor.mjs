@@ -8,7 +8,7 @@ import zlib from "zlib";
 const app = express();
 const debug = true;
 const proxyPort = 9999;
-const serverPost = 80;
+const serverPort = 80;
 
 function init() {
     console.log("Setting up...");
@@ -42,8 +42,14 @@ const server = createServer((info, accept, deny) => {
     accept();
 });
 
+//start SOCKS proxy
 server.listen(proxyPort, "127.0.0.1", () => {
     console.log(`SOCKS Proxy listening on port ${proxyPort}`);
 });
 
 server.useAuth(socksv5.auth.None());
+
+//start interceptor server
+app.listen(serverPort, () => {
+    console.log("Waiting for connection...");
+});
