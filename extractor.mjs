@@ -45,11 +45,10 @@ const server = createServer((info, accept, deny) => {
 //start SOCKS proxy
 server.listen(proxyPort, "127.0.0.1", () => {
     console.log(`SOCKS Proxy listening on port ${proxyPort}`);
+    //start interceptor server
+    app.listen(serverPort, () => {
+        console.log("Waiting for connection...");
+    });
 });
 
 server.useAuth(socksv5.auth.None());
-
-//start interceptor server
-app.listen(serverPort, () => {
-    console.log("Waiting for connection...");
-});
