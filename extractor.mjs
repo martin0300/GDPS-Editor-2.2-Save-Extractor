@@ -25,6 +25,7 @@ SOFTWARE.
 import fs from "fs";
 import express from "express";
 import zlib from "zlib";
+import ip from "ip";
 
 const app = express();
 
@@ -69,5 +70,6 @@ app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ exten
 });
 
 app.listen(80, () => {
+    console.log(`Your local IP address: ${ip.address()}`);
     console.log("Waiting for connection...");
 });
