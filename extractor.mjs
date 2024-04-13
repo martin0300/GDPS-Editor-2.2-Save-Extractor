@@ -4,6 +4,7 @@ const { createServer } = socksv5;
 import express from "express";
 import fs from "fs";
 import zlib from "zlib";
+import ip from "ip";
 
 const app = express();
 const debug = true;
@@ -37,14 +38,24 @@ function decodeSaveData(saveData) {
 init();
 
 const server = createServer((info, accept, deny) => {
-    console.log(`New SOCKS connection from ${info.srcAddr}:${info.srcPort} to ${info.dstAddr}:${info.dstPort}`);
-    info.dstAddr = "127.0.0.1";
+    if (debug) {
+        console.log(`New SOCKS connection from ${info.srcAddr}:${info.srcPort} to ${info.dstAddr}:${info.dstPort}`);
+    }
+    //only redirect connections going to port 80
+    if (info.dstPort == 80) {
+        if (debug) {
+            console.log("Redirecting to interceptor server");
+        }
+        info.dstAddr = "127.0.0.1";
+    }
     accept();
 });
 
 //start SOCKS proxy
-server.listen(proxyPort, "127.0.0.1", () => {
+server.listen(proxyPort, ip.address(), () => {
     console.log(`SOCKS Proxy listening on port ${proxyPort}`);
+    console.log(`Server address: ${ip.address()}`);
+    console.log(`Server port: ${proxyPort}`);
     //start interceptor server
     app.listen(serverPort, () => {
         console.log("Waiting for connection...");
