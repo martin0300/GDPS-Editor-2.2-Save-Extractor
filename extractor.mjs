@@ -42,14 +42,18 @@ app.post("/server/getAccountURL.php", (req, res) => {
     res.status(200).send("http://game.gdpseditor.com");
 });
 
-//express.urlencoded({ extended: true, limit: 52428800 })
-app.post("/database/accounts/backupGJAccountNew.php", (req, res) => {
+app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: "50mb" }), (req, res) => {
     console.log("Getting data...");
+    console.log(req.body);
     /*decodeSaveData(req.body.saveData);
     res.sendStatus(200);
     console.log("Finished");
     console.log("Save data saved to saveFiles folder!");
     process.exit(0);*/
+});
+
+/*app.use((err, req, res, next) => {
+    console.error(err.stack);
 });
 
 app.use((req, res, next) => {
@@ -65,7 +69,7 @@ app.use((req, res, next) => {
 // Define a route that responds with a 200 OK for all requests
 app.all("*", (req, res) => {
     res.status(404).send("OK");
-});
+});*/
 
 init();
 
@@ -76,12 +80,42 @@ const server = createServer((info, accept, deny) => {
     }
     //only redirect connections going to port 80
     if (info.dstPort == 80) {
+        var socket;
         if (debug) {
             console.log("Redirecting to interceptor server");
         }
+        if ((socket = accept(true))) {
+            const failBody = "Not found";
+            const failResponse = ["HTTP/1.1 404 Not found", "Connection: close", "Content-Type: text/plain", "Content-Length: " + Buffer.byteLength(failBody), "", failBody].join("\r\n");
+
+            const getAccountURLBody = "http://game.gdpseditor.com";
+            var getAccountURLResponse = ["HTTP/1.1 200 OK", "Connection: close", "Content-Type: text/plain", "Content-Length: " + Buffer.byteLength(getAccountURLBody), "", getAccountURLBody].join(
+                "\r\n"
+            );
+
+            socket.on("data", (data) => {
+                var requestData = data.toString();
+                console.log(requestData);
+                var requestLines = requestData.split("\r\n");
+
+                if (requestLines[1].includes("game.gdpseditor.com")) {
+                    if (requestLines[0].includes("/server/getAccountURL.php")) {
+                        if (debug) {
+                            console.log("Sending getAccountURL response...");
+                        }
+                        socket.end(getAccountURLResponse);
+                    } else {
+                        socket.end(failResponse);
+                    }
+                } else {
+                    socket.end(failResponse);
+                }
+            });
+        }
         info.dstAddr = "127.0.0.1";
+    } else {
+        accept();
     }
-    accept();
 });
 
 //start SOCKS proxy
