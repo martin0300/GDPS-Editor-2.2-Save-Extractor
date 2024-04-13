@@ -1,0 +1,23 @@
+{
+  "name": "gdps-editor-2.2-save-extractor",
+  "version": "1.0.0",
+  "description": "Extracts save data from GDPS Editor 2.2.",
+  "main": "extractor.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor.git"
+  },
+  "author": "martin0300",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/issues"
+  },
+  "homepage": "https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "ip": "^2.0.1"
+  }
+}
