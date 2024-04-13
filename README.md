@@ -1,6 +1,7 @@
 # GDPS-Editor-2.2-Save-Extractor
 
 Extracts save data from GDPS Editor 2.2. **New method without Pi-hole and WiFi hotspot are coming soon.**
+**If you have any questions [contact me](#contact-info), [create an issue](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/issues) or [write in the discussions](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/discussions).**
 
 # Why?
 
