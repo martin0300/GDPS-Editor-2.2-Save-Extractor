@@ -1,6 +1,7 @@
 # GDPS-Editor-2.2-Save-Extractor
 
-Extracts save data from GDPS Editor 2.2. **New method without Pi-hole and WiFi hotspot are coming soon.**
+Extracts save data from GDPS Editor 2.2. \
+**Project no longer requires you to have a Pi-Hole server and a WiFi capable device! It only needs it if you want to use the old method.**
 **If you have any questions [contact me](#contact-info), [create an issue](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/issues) or [write in the discussions](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/discussions).**
 
 # Why?
@@ -9,39 +10,39 @@ Because the GDPS Editor 2.2 servers has been shut down so you can't sync your ac
 
 # How to use
 
-**WARNING: This project requires you to have a Pi-hole server and a WiFi capable device. (Built-in or external WiFi dongle)**
+**Make sure you're on the same network as your device! This only works on Android devices!**
 
-**This guide only applies to Windows PCs, but instructions for Linux are coming soon. Your computer must be configured to use the Pi-hole DNS Server!**
+1. Install **Node.js** and **npm** if not installed
 
-1. Install **Node.js**, **npm** and **git** if not installed
     - **https://nodejs.org/**
-    - **https://git-scm.com/**
-2. Open terminal
-    - Search for **cmd** or **Windows Terminal** in windows search bar
-3. Clone repository
-   `git clone https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor`
-4. Run `npm i` and `node extractor.mjs` in your terminal
-5. Setup Pi-hole settings
-    - Add **gdpseditor.com** and point it to your computer's local ip in _Local DNS Records_ (Local DNS -> DNS Records)
-        - Your local ip will be printed when running `node extractor.mjs`
-    - Add **game.gdpseditor.com** and point it to **gdpseditor.com** in _Local CNAME Records_ (Local DNS -> CNAME Records)
-6. Setup Windows settings
-    - Disable IPv6 in network adapter settings ([Guide](https://support.nordvpn.com/hc/en-us/articles/19919186892305-How-to-disable-IPv6-on-Windows))
-    - Create a WiFi hotspot ([Guide](https://support.microsoft.com/en-us/windows/use-your-windows-pc-as-a-mobile-hotspot-c89b0fad-72d5-41e8-f7ea-406ad9036b85))
-    - Run `ipconfig /flushdns` in your terminal
-7. Connect your phone to your computer's WiFi hotspot
-8. Open GDPS Editor 2.2
-9. Click settings -> Account -> Save and wait for it to finish
-10. Wait for script to write _Finished_
-11. Browse the save data from the folder **saveFiles** using **https://gdcolon.com/gdsave/**
-12. Cleanup
-    - Disable WiFi hotspot
-    - Reenable IPv6 in network adapter settings
-    - Reconnect phone to home network
+
+2. Download repository by clicking Code -> Download zip or with this [direct link](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/archive/refs/heads/main.zip)
+    - You can also use `git clone https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor` in your terminal if you have [git](https://git-scm.com/) installed.
+3. Unpack the downloaded zip file
+4. Open terminal and navigate to the downloaded directory
+    - If you're on Windows, search for **cmd** or **Windows Terminal** in windows search bar
+5. Run `npm i` and `node extractor.mjs` in your terminal
+6. Setup phone settings (**Your computer's local IP and the proxy's port are printed when running extractor.mjs**)
+    1. Download **[Tun2Socks](https://play.google.com/store/apps/details?id=com.elseplus.tun2socks)** from the play store
+    2. Open downloaded app
+    3. Enter your computer's **local IP address** into **Socks host**
+    4. Enter the **proxy's port number** into **Port**
+    5. Press connect button in the bottom right corner
+    6. Wait for script to write: **Proxy connected! Waiting for connection from client...**
+7. Open GDPS Editor 2.2
+8. Click settings -> Account -> Save and wait for it to finish
+9. Wait for script to write: **Finished**
+10. Browse the save data from the folder **saveFiles** using **https://gdcolon.com/gdsave/**
+11. **Important! If you don't do this you will lose internet access on your device!**
+    - Open **Tun2Socks** and press disconnect button in the bottom right corner
+
+## Old method
+
+If the old method worked better for you, you can find it [here](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/blob/main/oldmethod.md).
 
 # How does it work?
 
-This works by creating a capture server and pointing **gdpseditor.com** and **game.gdpseditor.com** to it using Pi-hole.\
+This works by creating a capture server and a proxy server and connecting to it using a proxy app on your device. The proxy redirects all connections to the GDPS Server to the capture server.
 Then when the client on your device tries to backup the data it will be redirected to the capture server and it will be saved to **CCGameManager** and **CCLocalLevels**.
 
 ## Decoding logic
@@ -55,14 +56,13 @@ Then when the client on your device tries to backup the data it will be redirect
 
 -   [express](https://github.com/expressjs/express) - Web server
 -   [ip](https://github.com/indutny/node-ip) - Getting local ip address
+-   [@heroku/socksv5](https://github.com/heroku/socksv5) - Proxy server
 
 # Credits
 
 -   Project by **[martin0300](https://github.com/martin0300)** (me)
 -   [Geometry Dash server docs](https://github.com/SMJSGaming/GDDocs/blob/master/README.md) by **[SMJSGaming](https://github.com/SMJSGaming)**
 -   GD Save Explorer by **[GDColon](https://gdcolon.com/)**
--   WiFi hotspot guide by **[Microsoft support](https://support.microsoft.com)**
--   IPv6 disable guide by **[NordVPN support](https://support.nordvpn.com/)**
 
 # Contact info
 
