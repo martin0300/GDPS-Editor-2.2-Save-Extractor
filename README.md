@@ -13,9 +13,7 @@ Because the GDPS Editor 2.2 servers has been shut down so you can't sync your ac
 **Make sure you're on the same network as your device! This only works on Android devices!**
 
 1. Install **Node.js** and **npm** if not installed
-
     - **https://nodejs.org/**
-
 2. Download repository by clicking Code -> Download zip or with this [direct link](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/archive/refs/heads/main.zip)
     - You can also use `git clone https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor` in your terminal if you have [git](https://git-scm.com/) installed.
 3. Unpack the downloaded zip file
