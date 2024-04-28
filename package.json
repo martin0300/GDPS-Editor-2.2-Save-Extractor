@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor#readme",
   "dependencies": {
+    "@heroku/socksv5": "^0.0.9",
     "express": "^4.19.2",
     "ip": "^2.0.1"
   }

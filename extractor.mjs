@@ -26,8 +26,26 @@ import fs from "fs";
 import express from "express";
 import zlib from "zlib";
 import ip from "ip";
+import socksv5 from "@heroku/socksv5";
+
+const PORT = 9999;
+var wasConnected = false;
+
+const { createServer } = socksv5;
 
 const app = express();
+const proxy = createServer((info, accept, deny) => {
+    if (!wasConnected) {
+        console.log("Proxy connected! Waiting for connection from client...");
+    }
+    wasConnected = true;
+
+    if (info.dstPort === 80) {
+        info.dstAddr = "localhost";
+    }
+
+    accept();
+});
 
 function init() {
     console.log("Setting up...");
@@ -66,10 +84,17 @@ app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ exten
     res.sendStatus(200);
     console.log("Finished");
     console.log("Save data saved to saveFiles folder!");
-    process.exit(0);
+    setTimeout(() => {
+        process.exit(0);
+    }, 1000);
 });
 
-app.listen(80, () => {
-    console.log(`Your local IP address: ${ip.address()}`);
-    console.log("Waiting for connection...");
+proxy.listen(PORT, ip.address(), () => {
+    app.listen(80, () => {
+        console.log(`Proxy IP: ${ip.address()}`);
+        console.log(`Proxy Port: ${PORT}`);
+        console.log("Waiting for connection...");
+    });
 });
+
+proxy.useAuth(socksv5.auth.None());
