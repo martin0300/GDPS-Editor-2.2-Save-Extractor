@@ -29,6 +29,7 @@ import ip from "ip";
 import socksv5 from "@heroku/socksv5";
 
 const PORT = 9999;
+const debug = true;
 var wasConnected = false;
 
 const { createServer } = socksv5;
@@ -90,13 +91,23 @@ app.post("/server/getAccountURL.php", (req, res) => {
 });
 
 app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: 52428800 }), (req, res) => {
+    if (debug) {
+        console.log("DEBUG: Using database endpoint");
+    }
     commonBackupEndpoint(req, res);
 });
 
-//For GDPS Editor 2.2 Subzero 2.2.12
+//For GDPS Editor 2.2 Subzero 2.2.12 (Bottom left RobTop logo version)
 app.post("/serverse/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: 52428800 }), (req, res) => {
+    if (debug) {
+        console.log("DEBUG: Using serverse endpoint");
+    }
     commonBackupEndpoint(req, res);
 });
+
+if (debug) {
+    console.log("DEBUG: Debug mode enabled!");
+}
 
 proxy.listen(PORT, ip.address(), () => {
     app.listen(80, () => {

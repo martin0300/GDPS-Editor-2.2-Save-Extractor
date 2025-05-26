@@ -8,6 +8,19 @@ Extracts save data from GDPS Editor 2.2. \
 
 Because the GDPS Editor 2.2 servers has been shut down so you can't sync your account anymore and it's stuck on your device. With this tool you can export your save files to their respective **CCGameManager** and **CCLocalLevels** files to be able to backup your account or export your created levels for reupload from **CCLocalLevels**.
 
+# Supported versions
+
+## Tested
+
+-   GDPS Editor 2.2 Subzero 2.2.12 **(Tools button in bottom left)**
+-   GDPS Editor 2.2 Subzero 2.2.12 **(RobTop logo in bottom left)**
+-   GDPS Editor 2.2 Lite 2.2.11
+-   GDPS Editor 2.2 2.21
+
+## Untested
+
+For versions not listed above it most likely will work but if not [create an issue](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/issues) and I'll look into it.
+
 # How to use
 
 **Make sure you're on the same network as your device! This only works on Android devices!**
