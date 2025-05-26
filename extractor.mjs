@@ -30,6 +30,7 @@ import socksv5 from "@heroku/socksv5";
 
 const PORT = 9999;
 const debug = true;
+const ver = "2.1-beta";
 var wasConnected = false;
 
 const { createServer } = socksv5;
@@ -111,6 +112,7 @@ if (debug) {
 
 proxy.listen(PORT, ip.address(), () => {
     app.listen(80, () => {
+        console.log(`Running version: V${ver}`);
         console.log(`Proxy IP: ${ip.address()}`);
         console.log(`Proxy Port: ${PORT}`);
         console.log("Waiting for connection...");
