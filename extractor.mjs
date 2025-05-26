@@ -71,14 +71,7 @@ function decodeSaveData(saveData) {
     return;
 }
 
-init();
-
-app.post("/server/getAccountURL.php", (req, res) => {
-    console.log("Got connection!");
-    res.send("http://game.gdpseditor.com");
-});
-
-app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: 52428800 }), (req, res) => {
+function commonBackupEndpoint(req, res) {
     console.log("Getting data...");
     decodeSaveData(req.body.saveData);
     res.sendStatus(200);
@@ -87,6 +80,22 @@ app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ exten
     setTimeout(() => {
         process.exit(0);
     }, 1000);
+}
+
+init();
+
+app.post("/server/getAccountURL.php", (req, res) => {
+    console.log("Got connection!");
+    res.send("http://game.gdpseditor.com");
+});
+
+app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: 52428800 }), (req, res) => {
+    commonBackupEndpoint(req, res);
+});
+
+//For GDPS Editor 2.2 Subzero 2.2.12
+app.post("/serverse/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: 52428800 }), (req, res) => {
+    commonBackupEndpoint(req, res);
 });
 
 proxy.listen(PORT, ip.address(), () => {
