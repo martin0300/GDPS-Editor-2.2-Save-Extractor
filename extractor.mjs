@@ -31,7 +31,6 @@ import socksv5 from "@heroku/socksv5";
 const PORT = 9999;
 var serverPort = 9998;
 var debug = false;
-var legacyMode = false;
 var sizeLimit = "100mb";
 const ver = "2.1.1-stable";
 var wasConnected = false;
@@ -47,9 +46,7 @@ const proxy = createServer((info, accept, deny) => {
 
     if (info.dstPort === 80) {
         info.dstAddr = "localhost";
-        if (!legacyMode) {
-            info.dstPort = serverPort;
-        }
+        info.dstPort = serverPort;
     }
 
     accept();
@@ -135,7 +132,6 @@ function checkArgs() {
     }
     if (args.includes("--legacy") || args.includes("-l")) {
         console.log("Legacy mode is currently active. You might need administrator privileges to proceed.");
-        legacyMode = true;
         serverPort = 80;
     }
 }
