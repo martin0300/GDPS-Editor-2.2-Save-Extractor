@@ -14,7 +14,7 @@ if exist "node_modules\" (
     echo Skipping dependency installation.
 ) else (
     echo Installing dependencies...
-    cmd /c "npm i --no-audit"
+    cmd /c "npm i --no-audit --silent"
 )
 
 node extractor.mjs %1
