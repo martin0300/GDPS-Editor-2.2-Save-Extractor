@@ -45,6 +45,7 @@ const proxy = createServer((info, accept, deny) => {
 
     if (info.dstPort === 80) {
         info.dstAddr = "localhost";
+        info.dstPort = 9998;
     }
 
     accept();
@@ -168,7 +169,7 @@ if (debug) {
 }
 
 proxy.listen(PORT, ip.address(), () => {
-    app.listen(80, () => {
+    app.listen(9998, () => {
         console.log(`Running version: V${ver}`);
         console.log(`Proxy IP: ${ip.address()}`);
         console.log(`Proxy Port: ${PORT}`);
