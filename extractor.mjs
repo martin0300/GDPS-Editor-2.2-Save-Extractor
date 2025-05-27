@@ -98,7 +98,7 @@ app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ exten
     commonBackupEndpoint(req, res);
 });
 
-//For GDPS Editor 2.2 Subzero 2.2.12 (Bottom left RobTop logo version)
+//For older versions using the serverse endpoint
 app.post("/serverse/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: 52428800 }), (req, res) => {
     if (debug) {
         console.log("DEBUG: Using serverse endpoint");
