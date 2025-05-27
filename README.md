@@ -47,6 +47,7 @@ For versions not listed in the document it most likely will work but if not [cre
     - If an error occurs, proceed to the [Troubleshooting section](#login-failure)
 10. Go back to the main menu and click settings -> Account again
 11. Click Save and wait for it to finish
+    - If an error occurs, proceed to the [Troubleshooting section](#backup-failed--data-size-limit-exceeded)
 12. Wait for script to write: **Finished**
 13. Browse the save data from the folder **saveFiles** using **https://gdcolon.com/gdsave/**
 14. **Important! If you don't do this you will lose internet access on your device!**
@@ -70,6 +71,23 @@ Try the following steps:
 1. **Restart both Tun2Socks and the extractor.**
 2. Make sure your **device and computer are on the same network.**
 3. **Double-check the proxy IP address and port number.**
+
+If it still doesn't work, [**open an issue**](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/issues) and I'll take a look at it.
+
+## Backup failed / Data size limit exceeded
+
+If you get the message **"Backup failed. Please try again later."** or **"Data size limit exceeded!"**, it usually means one of the following:
+
+-   A connection to the server failed
+-   The game version is incompatible with the server (You can check supported versions [here](#supported-versions))
+-   Your save file is too big. (This will also throw a **"Data size limit exceeded!"** error in your terminal)
+
+Try the following steps:
+
+1. **Restart both Tun2Socks and the extractor.**
+2. Make sure your **device and computer are on the same network.**
+3. **Double-check the proxy IP address and port number.**
+4. In case of a **"Data size limit exceeded!"** error you can try the `--1gbsize` switch when starting the extractor. This can be done with the following command: `node extractor.mjs --1gbsize`
 
 If it still doesn't work, [**open an issue**](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/issues) and I'll take a look at it.
 
