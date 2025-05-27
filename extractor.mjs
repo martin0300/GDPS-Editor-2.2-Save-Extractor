@@ -29,7 +29,8 @@ import ip from "ip";
 import socksv5 from "@heroku/socksv5";
 
 const PORT = 9999;
-const debug = true;
+var debug = true;
+var sizeLimit = "100mb";
 const ver = "2.1-beta";
 var wasConnected = false;
 
@@ -106,6 +107,28 @@ function errorHandler(err, req, res, next) {
     }
 }
 
+function checkArgs() {
+    const args = process.argv.slice(2);
+
+    if (args.includes("--help") || args.includes("-h")) {
+        console.log("Usage: node extractor.mjs [options]");
+        console.log("Options: --help, --debug, --version, --1gbsize");
+        process.exit(0);
+    }
+    if (args.includes("--debug") || args.includes("-d")) {
+        debug = true;
+    }
+    if (args.includes("--version") || args.includes("-v")) {
+        console.log(`GDPS-Editor-2.2-Save-Extractor V${ver}`);
+        process.exit(0);
+    }
+    if (args.includes("--1gbsize")) {
+        console.log("Activating 1GB data size, this might cause issues!");
+        sizeLimit = "1gb";
+    }
+}
+
+checkArgs();
 init();
 
 app.post("/server/accounts/loginGJAccount.php", express.urlencoded({ extended: true }), (req, res) => {
@@ -123,7 +146,7 @@ app.post("/server/getAccountURL.php", (req, res) => {
     res.send("http://game.gdpseditor.com");
 });
 
-app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: "30mb" }), errorHandler, (req, res) => {
+app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: sizeLimit }), errorHandler, (req, res) => {
     if (debug) {
         console.log("DEBUG: Using database endpoint");
     }
@@ -131,7 +154,7 @@ app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ exten
 });
 
 //For older versions using the serverse endpoint
-app.post("/serverse/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: "30mb" }), errorHandler, (req, res) => {
+app.post("/serverse/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: sizeLimit }), errorHandler, (req, res) => {
     if (debug) {
         console.log("DEBUG: Using serverse endpoint");
     }
