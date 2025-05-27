@@ -27,3 +27,4 @@
 -   Added `start.bat`, `start-debug.bat`, `start-legacy.bat` and `start-1gbsize.bat` batch scripts
 -   Updated guides
 -   Updated previously missed Pi-hole guide
+-   Added better error handling to main server
