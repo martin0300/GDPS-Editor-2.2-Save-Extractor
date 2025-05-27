@@ -2,7 +2,7 @@
 
 Extracts save data from GDPS Editor 2.2. \
 **Project no longer requires you to have a Pi-Hole server and a WiFi capable device! It only needs it if you want to use the old method.**
-**If you have any questions [contact me](#contact-info), [create an issue](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/issues) or [write in the discussions](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/discussions).**
+**If you have any questions [contact me](#contact-info), [create an issue](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/blob/beta/CONTRIBUTING.md) or [write in the discussions](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/discussions).**
 
 # Why?
 
@@ -16,7 +16,7 @@ You can find all the tested versions [here](https://github.com/martin0300/GDPS-E
 
 ## Untested
 
-For versions not listed in the document it most likely will work but if not [create an issue](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/issues) and I'll look into it.
+For versions not listed in the document it most likely will work but if not [create an issue](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/blob/beta/CONTRIBUTING.md) and I'll look into it.
 
 # How to use
 
@@ -72,7 +72,7 @@ Try the following steps:
 2. Make sure your **device and computer are on the same network.**
 3. **Double-check the proxy IP address and port number.**
 
-If it still doesn't work, [**open an issue**](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/issues) and I'll take a look at it.
+If it still doesn't work, [**open an issue**](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/blob/beta/CONTRIBUTING.md) and I'll take a look at it.
 
 ## Backup failed / Data size limit exceeded
 
@@ -89,7 +89,7 @@ Try the following steps:
 3. **Double-check the proxy IP address and port number.**
 4. In case of a **"Data size limit exceeded!"** error you can try the `--1gbsize` switch when starting the extractor. This can be done with the following command: `node extractor.mjs --1gbsize`
 
-If it still doesn't work, [**open an issue**](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/issues) and I'll take a look at it.
+If it still doesn't work, [**open an issue**](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/blob/beta/CONTRIBUTING.md) and I'll take a look at it.
 
 # How does it work?
 
