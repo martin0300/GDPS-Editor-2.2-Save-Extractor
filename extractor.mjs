@@ -33,7 +33,7 @@ var serverPort = 9998;
 var debug = false;
 var legacyMode = false;
 var sizeLimit = "100mb";
-const ver = "2.1-stable";
+const ver = "2.1.1-stable";
 var wasConnected = false;
 
 const { createServer } = socksv5;
