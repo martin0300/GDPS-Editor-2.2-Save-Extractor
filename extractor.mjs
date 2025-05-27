@@ -73,8 +73,16 @@ function decodeSaveData(saveData) {
     return;
 }
 
+function removeSensitiveKeys(obj) {
+    const keysToRemove = ["gjp", "gjp2", "password", "saveData"];
+    return Object.fromEntries(Object.entries(obj).filter(([key]) => !keysToRemove.includes(key)));
+}
+
 function commonBackupEndpoint(req, res) {
     console.log("Getting data...");
+    console.log("DEBUG:");
+    console.log(removeSensitiveKeys(req.body));
+    console.log("------");
     decodeSaveData(req.body.saveData);
     res.sendStatus(200);
     console.log("Finished");
@@ -85,6 +93,16 @@ function commonBackupEndpoint(req, res) {
 }
 
 init();
+
+app.post("/server/accounts/loginGJAccount.php", express.urlencoded({ extended: true }), (req, res) => {
+    if (debug) {
+        console.log("DEBUG:");
+        console.log(removeSensitiveKeys(req.body));
+        console.log("------");
+    }
+    console.log(`Got auth request with username: ${req.body.userName}!`);
+    res.send("1,1").status(200);
+});
 
 app.post("/server/getAccountURL.php", (req, res) => {
     console.log("Got connection!");
