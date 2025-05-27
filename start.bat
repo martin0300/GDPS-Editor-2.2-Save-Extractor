@@ -14,7 +14,7 @@ if exist "node_modules\" (
     echo Skipping dependency installation.
 ) else (
     echo Installing dependencies...
-    npm i
+    cmd /c "npm i"
 )
 
 node extractor.mjs %1
