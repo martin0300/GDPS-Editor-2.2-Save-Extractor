@@ -38,10 +38,18 @@ For versions not listed in the document it most likely will work but if not [cre
     5. Press connect button in the bottom right corner
     6. Wait for script to write: **Proxy connected! Waiting for connection from client...**
 7. Open GDPS Editor 2.2
-8. Click settings -> Account -> Save and wait for it to finish
-9. Wait for script to write: **Finished**
-10. Browse the save data from the folder **saveFiles** using **https://gdcolon.com/gdsave/**
-11. **Important! If you don't do this you will lose internet access on your device!**
+8. Click settings -> Account
+    - If you already have an account, a **Save** button will be visible. If so, proceed directly to step 11.
+    - If not, click **Login** and follow the instructions in the next steps.
+9. Input any username and password you want then click on login
+    - Username needs to be **minimum 3 characters long**
+    - Password needs to be **minimum 6 characters long**
+    - If an error occurs, proceed to the Troubleshooting section
+10. Go back to the main menu and click settings -> Account again
+11. Click Save and wait for it to finish
+12. Wait for script to write: **Finished**
+13. Browse the save data from the folder **saveFiles** using **https://gdcolon.com/gdsave/**
+14. **Important! If you don't do this you will lose internet access on your device!**
     - Open **Tun2Socks** and press disconnect button in the bottom right corner
 
 ## Old method
