@@ -29,9 +29,10 @@ import ip from "ip";
 import socksv5 from "@heroku/socksv5";
 
 const PORT = 9999;
+var serverPort = 9998;
 var debug = false;
 var sizeLimit = "100mb";
-const ver = "2.1-stable";
+const ver = "2.1.1-stable";
 var wasConnected = false;
 
 const { createServer } = socksv5;
@@ -45,6 +46,7 @@ const proxy = createServer((info, accept, deny) => {
 
     if (info.dstPort === 80) {
         info.dstAddr = "localhost";
+        info.dstPort = serverPort;
     }
 
     accept();
@@ -128,6 +130,10 @@ function checkArgs() {
         console.log("Activating 1GB data size, this might cause issues!");
         sizeLimit = "1gb";
     }
+    if (args.includes("--legacy") || args.includes("-l")) {
+        console.log("Legacy mode is currently active. You might need administrator privileges to proceed.");
+        serverPort = 80;
+    }
 }
 
 checkArgs();
@@ -168,11 +174,21 @@ if (debug) {
 }
 
 proxy.listen(PORT, ip.address(), () => {
-    app.listen(80, () => {
+    const server = app.listen(serverPort, () => {
         console.log(`Running version: V${ver}`);
         console.log(`Proxy IP: ${ip.address()}`);
         console.log(`Proxy Port: ${PORT}`);
         console.log("Waiting for connection...");
+    });
+
+    server.on("error", (err) => {
+        console.log("You need administrator privileges to proceed.");
+        if (debug) {
+            console.log("DEBUG:");
+            console.log(err);
+            console.log("------");
+        }
+        process.exit(0);
     });
 });
 

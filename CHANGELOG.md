@@ -1,14 +1,14 @@
 # Changelog
 
-# Version 1.0 (April 13, 2024)
+## Version 1.0 (April 13, 2024)
 
 -   Initial release
 
-# Version 2.0 (April 28, 2024)
+## Version 2.0 (April 28, 2024)
 
--   Replaced Pi-Hole method with a proxy
+-   Replaced Pi-hole method with a proxy
 
-# Version 2.1 (May 27, 2025)
+## Version 2.1 (May 27, 2025)
 
 -   Added support for older clients using the `serverse` endpoint
 -   Added login support
@@ -19,3 +19,12 @@
 -   Added troubleshooting section
 -   Updated usage guide
 -   Added reporting issues guide
+
+## Version 2.1.1 (May 28, 2025)
+
+-   Using non restricted port 9998 instead of port 80 for main server
+-   Added legacy mode for Pi-hole method compability (`--legacy`)
+-   Added `start.bat`, `start-debug.bat`, `start-legacy.bat` and `start-1gbsize.bat` batch scripts
+-   Updated guides
+-   Updated previously missed Pi-hole guide
+-   Added better error handling to main server
