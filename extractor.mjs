@@ -29,6 +29,9 @@ import ip from "ip";
 import socksv5 from "@heroku/socksv5";
 
 const PORT = 9999;
+var debug = false;
+var sizeLimit = "100mb";
+const ver = "2.1-stable";
 var wasConnected = false;
 
 const { createServer } = socksv5;
@@ -71,15 +74,18 @@ function decodeSaveData(saveData) {
     return;
 }
 
-init();
+function removeSensitiveKeys(obj) {
+    const keysToRemove = ["gjp", "gjp2", "password", "saveData"];
+    return Object.fromEntries(Object.entries(obj).filter(([key]) => !keysToRemove.includes(key)));
+}
 
-app.post("/server/getAccountURL.php", (req, res) => {
-    console.log("Got connection!");
-    res.send("http://game.gdpseditor.com");
-});
-
-app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: 52428800 }), (req, res) => {
+function commonBackupEndpoint(req, res) {
     console.log("Getting data...");
+    if (debug) {
+        console.log("DEBUG:");
+        console.log(removeSensitiveKeys(req.body));
+        console.log("------");
+    }
     decodeSaveData(req.body.saveData);
     res.sendStatus(200);
     console.log("Finished");
@@ -87,10 +93,83 @@ app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ exten
     setTimeout(() => {
         process.exit(0);
     }, 1000);
+}
+
+function errorHandler(err, req, res, next) {
+    if (err) {
+        console.log("Data size limit exceeded!");
+        if (debug) {
+            console.log("DEBUG:");
+            console.log(err);
+            console.log("------");
+        }
+        res.sendStatus(400);
+    } else {
+        next();
+    }
+}
+
+function checkArgs() {
+    const args = process.argv.slice(2);
+
+    if (args.includes("--help") || args.includes("-h")) {
+        console.log("Usage: node extractor.mjs [options]");
+        console.log("Options: --help, --debug, --version, --1gbsize");
+        process.exit(0);
+    }
+    if (args.includes("--debug") || args.includes("-d")) {
+        debug = true;
+    }
+    if (args.includes("--version") || args.includes("-v")) {
+        console.log(`GDPS-Editor-2.2-Save-Extractor V${ver}`);
+        process.exit(0);
+    }
+    if (args.includes("--1gbsize")) {
+        console.log("Activating 1GB data size, this might cause issues!");
+        sizeLimit = "1gb";
+    }
+}
+
+checkArgs();
+init();
+
+app.post("/server/accounts/loginGJAccount.php", express.urlencoded({ extended: true }), (req, res) => {
+    if (debug) {
+        console.log("DEBUG:");
+        console.log(removeSensitiveKeys(req.body));
+        console.log("------");
+    }
+    console.log(`Got auth request with username: ${req.body.userName}!`);
+    res.send("1,1").status(200);
 });
+
+app.post("/server/getAccountURL.php", (req, res) => {
+    console.log("Got connection!");
+    res.send("http://game.gdpseditor.com");
+});
+
+app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: sizeLimit }), errorHandler, (req, res) => {
+    if (debug) {
+        console.log("DEBUG: Using database endpoint");
+    }
+    commonBackupEndpoint(req, res);
+});
+
+//For older versions using the serverse endpoint
+app.post("/serverse/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: sizeLimit }), errorHandler, (req, res) => {
+    if (debug) {
+        console.log("DEBUG: Using serverse endpoint");
+    }
+    commonBackupEndpoint(req, res);
+});
+
+if (debug) {
+    console.log("DEBUG: Debug mode enabled!");
+}
 
 proxy.listen(PORT, ip.address(), () => {
     app.listen(80, () => {
+        console.log(`Running version: V${ver}`);
         console.log(`Proxy IP: ${ip.address()}`);
         console.log(`Proxy Port: ${PORT}`);
         console.log("Waiting for connection...");

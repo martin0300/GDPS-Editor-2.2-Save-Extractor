@@ -2,11 +2,21 @@
 
 Extracts save data from GDPS Editor 2.2. \
 **Project no longer requires you to have a Pi-Hole server and a WiFi capable device! It only needs it if you want to use the old method.**
-**If you have any questions [contact me](#contact-info), [create an issue](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/issues) or [write in the discussions](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/discussions).**
+**If you have any questions [contact me](#contact-info), [create an issue](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/blob/beta/CONTRIBUTING.md) or [write in the discussions](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/discussions).**
 
 # Why?
 
 Because the GDPS Editor 2.2 servers has been shut down so you can't sync your account anymore and it's stuck on your device. With this tool you can export your save files to their respective **CCGameManager** and **CCLocalLevels** files to be able to backup your account or export your created levels for reupload from **CCLocalLevels**.
+
+# Supported versions
+
+## Tested
+
+You can find all the tested versions [here](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/blob/beta/versions.md).
+
+## Untested
+
+For versions not listed in the document it most likely will work but if not [create an issue](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/blob/beta/CONTRIBUTING.md) and I'll look into it.
 
 # How to use
 
@@ -28,15 +38,58 @@ Because the GDPS Editor 2.2 servers has been shut down so you can't sync your ac
     5. Press connect button in the bottom right corner
     6. Wait for script to write: **Proxy connected! Waiting for connection from client...**
 7. Open GDPS Editor 2.2
-8. Click settings -> Account -> Save and wait for it to finish
-9. Wait for script to write: **Finished**
-10. Browse the save data from the folder **saveFiles** using **https://gdcolon.com/gdsave/**
-11. **Important! If you don't do this you will lose internet access on your device!**
+8. Click settings -> Account
+    - If you already have an account, a **Save** button will be visible. If so, proceed directly to step 11.
+    - If not, click **Login** and follow the instructions in the next steps.
+9. Input any username and password you want then click on login
+    - Username needs to be **minimum 3 characters long**
+    - Password needs to be **minimum 6 characters long**
+    - If an error occurs, proceed to the [Troubleshooting section](#login-failure)
+10. Go back to the main menu and click settings -> Account again
+11. Click Save and wait for it to finish
+    - If an error occurs, proceed to the [Troubleshooting section](#backup-failed--data-size-limit-exceeded)
+12. Wait for script to write: **Finished**
+13. Browse the save data from the folder **saveFiles** using **https://gdcolon.com/gdsave/**
+14. **Important! If you don't do this you will lose internet access on your device!**
     - Open **Tun2Socks** and press disconnect button in the bottom right corner
 
 ## Old method
 
 If the old method worked better for you, you can find it [here](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/blob/main/oldmethod.md).
+
+# Troubleshooting
+
+## Login failure
+
+If a login failure occurs or your game crashes when pressing **Login**, it usually means one of the following:
+
+-   A connection to the server failed
+-   The game version is incompatible with the server (You can check supported versions [here](#supported-versions))
+
+Try the following steps:
+
+1. **Restart both Tun2Socks and the extractor.**
+2. Make sure your **device and computer are on the same network.**
+3. **Double-check the proxy IP address and port number.**
+
+If it still doesn't work, [**open an issue**](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/blob/beta/CONTRIBUTING.md) and I'll take a look at it.
+
+## Backup failed / Data size limit exceeded
+
+If you get the message **"Backup failed. Please try again later."** or **"Data size limit exceeded!"**, it usually means one of the following:
+
+-   A connection to the server failed
+-   The game version is incompatible with the server (You can check supported versions [here](#supported-versions))
+-   Your save file is too big. (This will also throw a **"Data size limit exceeded!"** error in your terminal)
+
+Try the following steps:
+
+1. **Restart both Tun2Socks and the extractor.**
+2. Make sure your **device and computer are on the same network.**
+3. **Double-check the proxy IP address and port number.**
+4. In case of a **"Data size limit exceeded!"** error you can try the `--1gbsize` switch when starting the extractor. This can be done with the following command: `node extractor.mjs --1gbsize`
+
+If it still doesn't work, [**open an issue**](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/blob/beta/CONTRIBUTING.md) and I'll take a look at it.
 
 # How does it work?
 
