@@ -92,6 +92,20 @@ function commonBackupEndpoint(req, res) {
     }, 1000);
 }
 
+function errorHandler(err, req, res, next) {
+    if (err) {
+        console.log("Data size limit exceeded!");
+        if (debug) {
+            console.log("DEBUG:");
+            console.log(err);
+            console.log("------");
+        }
+        res.sendStatus(400);
+    } else {
+        next();
+    }
+}
+
 init();
 
 app.post("/server/accounts/loginGJAccount.php", express.urlencoded({ extended: true }), (req, res) => {
@@ -109,7 +123,7 @@ app.post("/server/getAccountURL.php", (req, res) => {
     res.send("http://game.gdpseditor.com");
 });
 
-app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: "100mb" }), (req, res) => {
+app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: "30mb" }), errorHandler, (req, res) => {
     if (debug) {
         console.log("DEBUG: Using database endpoint");
     }
@@ -117,7 +131,7 @@ app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ exten
 });
 
 //For older versions using the serverse endpoint
-app.post("/serverse/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: "100mb" }), (req, res) => {
+app.post("/serverse/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: "30mb" }), errorHandler, (req, res) => {
     if (debug) {
         console.log("DEBUG: Using serverse endpoint");
     }
