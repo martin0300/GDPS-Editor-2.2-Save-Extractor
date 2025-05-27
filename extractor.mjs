@@ -81,9 +81,11 @@ function removeSensitiveKeys(obj) {
 
 function commonBackupEndpoint(req, res) {
     console.log("Getting data...");
-    console.log("DEBUG:");
-    console.log(removeSensitiveKeys(req.body));
-    console.log("------");
+    if (debug) {
+        console.log("DEBUG:");
+        console.log(removeSensitiveKeys(req.body));
+        console.log("------");
+    }
     decodeSaveData(req.body.saveData);
     res.sendStatus(200);
     console.log("Finished");
