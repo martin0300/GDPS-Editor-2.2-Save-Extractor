@@ -12,14 +12,11 @@ Because the GDPS Editor 2.2 servers has been shut down so you can't sync your ac
 
 ## Tested
 
--   GDPS Editor 2.2 Subzero 2.2.12 **(Tools button in bottom left)**
--   GDPS Editor 2.2 Subzero 2.2.12 **(RobTop logo in bottom left)**
--   GDPS Editor 2.2 Lite 2.2.11
--   GDPS Editor 2.2 2.21
+You can find all the tested versions [here](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/blob/beta/versions.md).
 
 ## Untested
 
-For versions not listed above it most likely will work but if not [create an issue](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/issues) and I'll look into it.
+For versions not listed in the document it most likely will work but if not [create an issue](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/issues) and I'll look into it.
 
 # How to use
 
