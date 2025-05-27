@@ -174,14 +174,14 @@ if (debug) {
 }
 
 proxy.listen(PORT, ip.address(), () => {
-    try {
-        app.listen(serverPort, () => {
-            console.log(`Running version: V${ver}`);
-            console.log(`Proxy IP: ${ip.address()}`);
-            console.log(`Proxy Port: ${PORT}`);
-            console.log("Waiting for connection...");
-        });
-    } catch (err) {
+    const server = app.listen(serverPort, () => {
+        console.log(`Running version: V${ver}`);
+        console.log(`Proxy IP: ${ip.address()}`);
+        console.log(`Proxy Port: ${PORT}`);
+        console.log("Waiting for connection...");
+    });
+
+    server.on("error", (err) => {
         console.log("You need administrator privileges to proceed.");
         if (debug) {
             console.log("DEBUG:");
@@ -189,7 +189,7 @@ proxy.listen(PORT, ip.address(), () => {
             console.log("------");
         }
         process.exit(0);
-    }
+    });
 });
 
 proxy.useAuth(socksv5.auth.None());
