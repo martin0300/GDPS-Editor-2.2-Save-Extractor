@@ -44,7 +44,7 @@ For versions not listed in the document it most likely will work but if not [cre
 9. Input any username and password you want then click on login
     - Username needs to be **minimum 3 characters long**
     - Password needs to be **minimum 6 characters long**
-    - If an error occurs, proceed to the Troubleshooting section
+    - If an error occurs, proceed to the [Troubleshooting section](#login-failure)
 10. Go back to the main menu and click settings -> Account again
 11. Click Save and wait for it to finish
 12. Wait for script to write: **Finished**
@@ -55,6 +55,23 @@ For versions not listed in the document it most likely will work but if not [cre
 ## Old method
 
 If the old method worked better for you, you can find it [here](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/blob/main/oldmethod.md).
+
+# Troubleshooting
+
+## Login failure
+
+If a login failure occurs or your game crashes when pressing **Login**, it usually means one of the following:
+
+-   A connection to the server failed
+-   The game version is incompatible with the server (You can check supported versions [here](#supported-versions))
+
+Try the following steps:
+
+1. **Restart both Tun2Socks and the extractor.**
+2. Make sure your **device and computer are on the same network.**
+3. **Double-check the proxy IP address and port number.**
+
+If it still doesn't work, [**open an issue**](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/issues) and I'll take a look at it.
 
 # How does it work?
 
