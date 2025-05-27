@@ -48,7 +48,7 @@ const proxy = createServer((info, accept, deny) => {
     if (info.dstPort === 80) {
         info.dstAddr = "localhost";
         if (!legacyMode) {
-            info.dstPort = 9998;
+            info.dstPort = serverPort;
         }
     }
 
