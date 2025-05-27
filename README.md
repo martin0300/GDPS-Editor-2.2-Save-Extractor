@@ -27,30 +27,32 @@ For versions not listed in the document it most likely will work but if not [cre
 2. Download repository by clicking Code -> Download zip or with this [direct link](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/archive/refs/heads/main.zip)
     - You can also use `git clone https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor` in your terminal if you have [git](https://git-scm.com/) installed.
 3. Unpack the downloaded zip file
-4. Open terminal and navigate to the downloaded directory
-    - If you're on Windows, search for **cmd** or **Windows Terminal** in windows search bar
-5. Run `npm i` and `node extractor.mjs` in your terminal
-6. Setup phone settings (**Your computer's local IP and the proxy's port are printed when running extractor.mjs**)
+4. Open the unpacked folder and double click `start.bat` **(recommended)**
+    - If you want to do this with a terminal manually (for advanced users):
+    1. On Windows, search for **cmd** or **Windows Terminal** in windows search bar, on Linux open any terminal
+    2. Navigate to the unpacked directory
+    3. Run `npm i` and `node extractor.mjs` in your terminal
+5. Setup phone settings (**Your computer's local IP and the proxy's port are printed when running `start.bat` or `extractor.mjs`**)
     1. Download **[Tun2Socks](https://play.google.com/store/apps/details?id=com.elseplus.tun2socks)** from the play store
     2. Open downloaded app
     3. Enter your computer's **local IP address** into **Socks host**
     4. Enter the **proxy's port number** into **Port**
     5. Press connect button in the bottom right corner
     6. Wait for script to write: **Proxy connected! Waiting for connection from client...**
-7. Open GDPS Editor 2.2
-8. Click settings -> Account
-    - If you already have an account, a **Save** button will be visible. If so, proceed directly to step 11.
+6. Open GDPS Editor 2.2
+7. Click settings -> Account
+    - If you already have an account, a **Save** button will be visible. If so, proceed directly to step 10.
     - If not, click **Login** and follow the instructions in the next steps.
-9. Input any username and password you want then click on login
+8. Input any username and password you want then click on login
     - Username needs to be **minimum 3 characters long**
     - Password needs to be **minimum 6 characters long**
     - If an error occurs, proceed to the [Troubleshooting section](#login-failure)
-10. Go back to the main menu and click settings -> Account again
-11. Click Save and wait for it to finish
+9. Go back to the main menu and click settings -> Account again
+10. Click Save and wait for it to finish
     - If an error occurs, proceed to the [Troubleshooting section](#backup-failed--data-size-limit-exceeded)
-12. Wait for script to write: **Finished**
-13. Browse the save data from the folder **saveFiles** using **https://gdcolon.com/gdsave/**
-14. **Important! If you don't do this you will lose internet access on your device!**
+11. Wait for script to write: **Finished**
+12. Browse the save data from the folder **saveFiles** using **https://gdcolon.com/gdsave/**
+13. **Important! If you don't do this you will lose internet access on your device!**
     - Open **Tun2Socks** and press disconnect button in the bottom right corner
 
 ## Old method
@@ -87,7 +89,7 @@ Try the following steps:
 1. **Restart both Tun2Socks and the extractor.**
 2. Make sure your **device and computer are on the same network.**
 3. **Double-check the proxy IP address and port number.**
-4. In case of a **"Data size limit exceeded!"** error you can try the `--1gbsize` switch when starting the extractor. This can be done with the following command: `node extractor.mjs --1gbsize`
+4. In case of a **"Data size limit exceeded!"** error you can try the `--1gbsize` switch when starting the extractor. This can be done by double clicking `start-1gbsize.bat` or with the following command: `node extractor.mjs --1gbsize`
 
 If it still doesn't work, [**open an issue**](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor/blob/main/CONTRIBUTING.md) and I'll take a look at it.
 
