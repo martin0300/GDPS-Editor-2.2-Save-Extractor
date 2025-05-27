@@ -29,9 +29,9 @@ import ip from "ip";
 import socksv5 from "@heroku/socksv5";
 
 const PORT = 9999;
-var debug = true;
+var debug = false;
 var sizeLimit = "100mb";
-const ver = "2.1-beta";
+const ver = "2.1-stable";
 var wasConnected = false;
 
 const { createServer } = socksv5;
