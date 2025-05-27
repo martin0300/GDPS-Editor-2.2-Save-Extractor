@@ -109,7 +109,7 @@ app.post("/server/getAccountURL.php", (req, res) => {
     res.send("http://game.gdpseditor.com");
 });
 
-app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: 52428800 }), (req, res) => {
+app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: "100mb" }), (req, res) => {
     if (debug) {
         console.log("DEBUG: Using database endpoint");
     }
@@ -117,7 +117,7 @@ app.post("/database/accounts/backupGJAccountNew.php", express.urlencoded({ exten
 });
 
 //For older versions using the serverse endpoint
-app.post("/serverse/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: 52428800 }), (req, res) => {
+app.post("/serverse/accounts/backupGJAccountNew.php", express.urlencoded({ extended: true, limit: "100mb" }), (req, res) => {
     if (debug) {
         console.log("DEBUG: Using serverse endpoint");
     }
