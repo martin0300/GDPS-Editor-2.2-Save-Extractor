@@ -15,6 +15,11 @@ if exist "node_modules\" (
 ) else (
     echo Installing dependencies...
     cmd /c "npm i --no-audit --silent"
+    if errorlevel 1 (
+        echo Failed to install dependencies! Please check your internet connection!
+        pause
+        exit /b
+    )
 )
 
 node extractor.mjs %1
