@@ -31,10 +31,10 @@
 10. Input any username and password you want then click on login
     - Username needs to be **minimum 3 characters long**
     - Password needs to be **minimum 6 characters long**
-    - If an error occurs, proceed to the [Troubleshooting section](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor?tab=readme-ov-file#login-failure)
+    - If an error occurs, proceed to the [Troubleshooting section](./README.md#login-failure)
 11. Go back to the main menu and click settings -> Account again
 12. Click Save and wait for it to finish
-    - If an error occurs, proceed to the [Troubleshooting section](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor?tab=readme-ov-file#backup-failed--data-size-limit-exceeded)
+    - If an error occurs, proceed to the [Troubleshooting section](./README.md#backup-failed--data-size-limit-exceeded)
 13. Wait for script to write: **Finished**
 14. Browse the save data from the folder **saveFiles** using **https://gdcolon.com/gdsave/**
 15. Cleanup
@@ -51,4 +51,4 @@ This works by creating a capture server and pointing **gdpseditor.com** and **ga
 -   WiFi hotspot guide by **[Microsoft support](https://support.microsoft.com)**
 -   IPv6 disable guide by **[NordVPN support](https://support.nordvpn.com/)**
 
-You can find the rest of the credits [here](https://github.com/martin0300/GDPS-Editor-2.2-Save-Extractor?tab=readme-ov-file#credits).
+You can find the rest of the credits [here](./README.md#credits).
