@@ -26,37 +26,40 @@ import fs from "fs";
 import express from "express";
 import zlib from "zlib";
 import ip from "ip";
+import os from "os";
 import socksv5 from "@heroku/socksv5";
 
 const PORT = 9999;
 var serverPort = 9998;
 var debug = false;
 var sizeLimit = "100mb";
-const ver = "2.1.1-stable";
+const ver = "2.1.2-beta";
 var wasConnected = false;
 
+const ipAddresses = getIPAddresses();
+const openProxies = [];
 const { createServer } = socksv5;
 
 const app = express();
-const proxy = createServer((info, accept, deny) => {
-    if (!wasConnected) {
-        console.log("Proxy connected! Waiting for connection from client...");
-    }
-    wasConnected = true;
-
-    if (info.dstPort === 80) {
-        info.dstAddr = "localhost";
-        info.dstPort = serverPort;
-    }
-
-    accept();
-});
 
 function init() {
     console.log("Setting up...");
     if (!fs.existsSync("saveFiles")) {
         fs.mkdirSync("saveFiles");
     }
+}
+
+function getIPAddresses() {
+    const interfacesObj = os.networkInterfaces();
+    const addresses = [];
+    for (const ifaceArray of Object.values(interfacesObj)) {
+        for (const addr of ifaceArray) {
+            if (!addr.internal && addr.family === "IPv4") {
+                addresses.push(addr.address);
+            }
+        }
+    }
+    return addresses;
 }
 
 function decodeSaveData(saveData) {
@@ -169,27 +172,71 @@ app.post("/serverse/accounts/backupGJAccountNew.php", express.urlencoded({ exten
     commonBackupEndpoint(req, res);
 });
 
+//Test endpoint
+app.get("/", (req, res) => {
+    if (debug) {
+        console.log("DEBUG: Test endpoint reached!");
+    }
+    res.send("GDPS-Editor-2.2-Save-Extractor is reachable!");
+});
+
 if (debug) {
     console.log("DEBUG: Debug mode enabled!");
 }
 
-proxy.listen(PORT, ip.address(), () => {
-    const server = app.listen(serverPort, () => {
-        console.log(`Running version: V${ver}`);
-        console.log(`Proxy IP: ${ip.address()}`);
-        console.log(`Proxy Port: ${PORT}`);
-        console.log("Waiting for connection...");
-    });
+const server = app.listen(serverPort, () => {
+    console.log(`Running version: V${ver}`);
+    console.log(`Proxy IP: ${ip.address()} (Test address: http://${ip.address()}:${serverPort}/)`);
+    console.log(`Proxy Port: ${PORT}`);
+    console.log(`\nOn the target device, you can test if the server is reachable by visiting the test address in a web browser, without connecting to the proxy.\n`);
 
-    server.on("error", (err) => {
-        console.log("You need administrator privileges to proceed.");
-        if (debug) {
-            console.log("DEBUG:");
-            console.log(err);
-            console.log("------");
+    //Because the "ip" package is unreliable
+    console.log("Other possible IP addresses:");
+    for (const address of ipAddresses) {
+        const proxy = createServer((info, accept, deny) => {
+            if (!wasConnected) {
+                console.log("Proxy connected! Waiting for connection from client...");
+            }
+            wasConnected = true;
+
+            if (info.dstPort === 80) {
+                info.dstAddr = "localhost";
+                info.dstPort = serverPort;
+            }
+
+            accept();
+        });
+
+        proxy.listen(PORT, address, () => {
+            if (debug) {
+                console.log(`DEBUG: Proxy listening on ${address}:${PORT}`);
+            }
+        });
+        proxy.on("error", (err) => {
+            if (debug) {
+                console.log(`DEBUG: Could not bind to address ${address}`);
+                console.log("DEBUG:");
+                console.log(err);
+                console.log("------");
+            }
+        });
+
+        proxy.useAuth(socksv5.auth.None());
+        openProxies.push(proxy);
+
+        if (address !== ip.address()) {
+            console.log(`- ${address} (Test address: http://${address}:${serverPort}/)`);
         }
-        process.exit(0);
-    });
+    }
+    console.log("Waiting for connection...");
 });
 
-proxy.useAuth(socksv5.auth.None());
+server.on("error", (err) => {
+    console.log("You need administrator privileges to proceed.");
+    if (debug) {
+        console.log("DEBUG:");
+        console.log(err);
+        console.log("------");
+    }
+    process.exit(0);
+});
