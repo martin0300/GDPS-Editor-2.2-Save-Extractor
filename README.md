@@ -33,12 +33,22 @@ For versions not listed in the document it most likely will work but if not [cre
     2. Navigate to the unpacked directory
     3. Run `npm i` and `node extractor.mjs` in your terminal
 5. Setup phone settings (**Your computer's local IP and the proxy's port are printed when running `start.bat` or `extractor.mjs`**)
-    1. Download **[Tun2Socks](https://play.google.com/store/apps/details?id=com.elseplus.tun2socks)** from the play store
-    2. Open downloaded app
-    3. Enter your computer's **local IP address** into **Socks host**
-    4. Enter the **proxy's port number** into **Port**
-    5. Press connect button in the bottom right corner
-    6. Wait for script to write: **Proxy connected! Waiting for connection from client...**
+    - Using SocksTun (Android 7+) [**recommended**]
+        1. Download and install **SocksTun** from [F-Droid](https://f-droid.org/packages/hev.sockstun/) or [GitHub](https://github.com/heiher/sockstun/releases/)
+        2. Open downloaded app
+        3. Enter your computer's **local IP address** into **Socks Address**
+        4. Enter the **proxy's port number** into **Socks Port**
+        5. Press **Save** and **Enable** on the bottom
+        6. Wait for script to write: **Proxy connected! Waiting for connection from client...**
+            - If you're stuck on **Waiting for connection...**, proceed to the [Troubleshooting section](#stuck-on-waiting-for-connection)
+    - Using Tun2Socks (Android 5+)
+        1. Download **[Tun2Socks](https://play.google.com/store/apps/details?id=com.elseplus.tun2socks)** from the play store
+        2. Open downloaded app
+        3. Enter your computer's **local IP address** into **Socks host**
+        4. Enter the **proxy's port number** into **Port**
+        5. Press connect button in the bottom right corner
+        6. Wait for script to write: **Proxy connected! Waiting for connection from client...**
+            - If you're stuck on **Waiting for connection...**, proceed to the [Troubleshooting section](#stuck-on-waiting-for-connection)
 6. Open GDPS Editor 2.2
 7. Click settings -> Account
     - If you already have an account, a **Save** button will be visible. If so, proceed directly to step 10.
@@ -53,7 +63,7 @@ For versions not listed in the document it most likely will work but if not [cre
 11. Wait for script to write: **Finished**
 12. Browse the save data from the folder **saveFiles** using **https://gdcolon.com/gdsave/**
 13. **Important! If you don't do this you will lose internet access on your device!**
-    - Open **Tun2Socks** and press disconnect button in the bottom right corner
+    - Open **SocksTun / Tun2Socks** and press **disconnect / Disable** button in the app
 
 ## Old method
 
@@ -70,7 +80,7 @@ If a login failure occurs or your game crashes when pressing **Login**, it usual
 
 Try the following steps:
 
-1. **Restart both Tun2Socks and the extractor.**
+1. **Restart both SocksTun / Tun2Socks and the extractor.**
 2. Make sure your **device and computer are on the same network.**
 3. **Double-check the proxy IP address and port number.**
 
@@ -86,12 +96,37 @@ If you get the message **"Backup failed. Please try again later."** or **"Data s
 
 Try the following steps:
 
-1. **Restart both Tun2Socks and the extractor.**
+1. **Restart both SocksTun / Tun2Socks and the extractor.**
 2. Make sure your **device and computer are on the same network.**
 3. **Double-check the proxy IP address and port number.**
 4. In case of a **"Data size limit exceeded!"** error you can try the `--1gbsize` switch when starting the extractor. This can be done by double clicking `start-1gbsize.bat` or with the following command: `node extractor.mjs --1gbsize`
 
 If it still doesn't work, [**open an issue**](./CONTRIBUTING.md) and I'll take a look at it.
+
+## Stuck on Waiting for Connection
+
+If you become stuck on "**Waiting for connection...**" when connection to the proxy, it usually means one of the following:
+
+-   A connection to the server failed
+-   Your device can't reach your computer
+-   The proxy app is having issues
+
+Try the following steps:
+
+1. Press **disconnect / Disable** in **SocksTun / Tun2Socks** and close the app.
+2. Open your browser on your device and try the **test addresses** that are printed when running the extractor.
+    - You should see a page saying: **GDPS-Editor-2.2-Save-Extractor is reachable!**
+    - If not, try the next possible IP address until it works.
+    - The address that works is your correct **Proxy IP**.
+3. Reopen **SocksTun** or **Tun2Socks**.
+    - If the IP you entered before is different from the one that worked in the browser, replace it.
+    - Do **not** change the **Proxy Port**.
+4. Press the **connect / Save and Enable** button in **SocksTun / Tun2Socks**.
+5. The script should now display: **Proxy connected! Waiting for connection from client...**
+    - If it does, continue with **Step 6** in the main guide.
+    - If it still doesn’t work:
+        - Try switching from **Tun2Socks** to **SocksTun**, as it’s generally more reliable.
+        - If the problem persists, please [**open an issue**](./CONTRIBUTING.md) and I’ll take a look at it.
 
 # How does it work?
 
@@ -128,7 +163,7 @@ Then when the client on your device tries to backup the data it will be redirect
 ```
 MIT License
 
-Copyright (c) 2024 martin0300
+Copyright (c) 2025 martin0300
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
