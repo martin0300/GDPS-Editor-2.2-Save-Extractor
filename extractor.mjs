@@ -33,7 +33,7 @@ const PORT = 9999;
 var serverPort = 9998;
 var debug = false;
 var sizeLimit = "100mb";
-const ver = "2.1.2-beta";
+const ver = "2.2-beta";
 var wasConnected = false;
 
 const ipAddresses = getIPAddresses();
@@ -177,7 +177,7 @@ app.get("/", (req, res) => {
     if (debug) {
         console.log("DEBUG: Test endpoint reached!");
     }
-    res.send("GDPS-Editor-2.2-Save-Extractor is reachable!");
+    res.send("<h1>GDPS-Editor-2.2-Save-Extractor is reachable!</h1>");
 });
 
 if (debug) {
@@ -185,7 +185,7 @@ if (debug) {
 }
 
 const server = app.listen(serverPort, () => {
-    console.log(`Running version: V${ver}`);
+    console.log(`Running version: V${ver}\n`);
     console.log(`Proxy IP: ${ip.address()} (Test address: http://${ip.address()}:${serverPort}/)`);
     console.log(`Proxy Port: ${PORT}`);
     console.log(`\nOn the target device, you can test if the server is reachable by visiting the test address in a web browser, without connecting to the proxy.\n`);
@@ -228,7 +228,7 @@ const server = app.listen(serverPort, () => {
             console.log(`- ${address} (Test address: http://${address}:${serverPort}/)`);
         }
     }
-    console.log("Waiting for connection...");
+    console.log("\nWaiting for connection...");
 });
 
 server.on("error", (err) => {
