@@ -29,7 +29,7 @@
 -   Updated previously missed Pi-hole guide
 -   Added better error handling to main server
 
-## Version 2.2 (TBD)
+## Version 2.2 (November 3, 2025)
 
 -   Added test endpoint to check if server is reachable
 -   Bind to all ports in case the found IP is the wrong interface

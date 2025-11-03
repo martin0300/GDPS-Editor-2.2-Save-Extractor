@@ -33,7 +33,7 @@ const PORT = 9999;
 var serverPort = 9998;
 var debug = false;
 var sizeLimit = "100mb";
-const ver = "2.2-beta";
+const ver = "2.2-stable";
 var wasConnected = false;
 
 const ipAddresses = getIPAddresses();
